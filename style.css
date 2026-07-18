@@ -184,8 +184,8 @@ button{cursor:pointer}
 .crank{
   position:absolute;
   z-index:15;
-  right:-14%;
-  top:55%;
+  right:-10%;
+  top:58%;
   width:150px;
   height:150px;
   transform-origin:132px 75px;
@@ -980,34 +980,34 @@ dialog::backdrop{
 }
 
 .stag-body{
-  left:3%;
-  bottom:0;
-  width:78%;
+  left:1%;
+  bottom:-1%;
+  width:82%;
   z-index:2;
 }
 
 .stag-head{
-  left:19%;
-  top:1%;
-  width:62%;
+  left:15%;
+  top:2%;
+  width:66%;
   z-index:5;
   transform-origin:50% 82%;
 }
 
 .stag-upper-arm{
-  left:49%;
-  top:48%;
-  width:38%;
+  left:47%;
+  top:51%;
+  width:35%;
   z-index:6;
-  transform-origin:18% 46%;
+  transform-origin:16% 42%;
 }
 
 .stag-forearm-hand{
-  left:51%;
-  top:52%;
-  width:52%;
+  left:48%;
+  top:55%;
+  width:56%;
   z-index:7;
-  transform-origin:16% 50%;
+  transform-origin:13% 48%;
 }
 
 .raffle-machine.mixing .rigged-stag{
@@ -1050,4 +1050,28 @@ dialog::backdrop{
   50%{transform:rotate(-10deg) translateY(0)}
   75%{transform:rotate(-3deg) translateY(-2px)}
   100%{transform:rotate(6deg) translateY(0)}
+}
+
+
+/* Phase 2 alignment correction */
+.rigged-stag::after{
+  content:"";
+  position:absolute;
+  left:57%;
+  top:54%;
+  width:18%;
+  height:11%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(18,27,20,.22),transparent 68%);
+  filter:blur(5px);
+  z-index:4;
+  pointer-events:none;
+}
+
+.raffle-machine:not(.mixing) .stag-upper-arm{
+  transform:rotate(-3deg);
+}
+
+.raffle-machine:not(.mixing) .stag-forearm-hand{
+  transform:rotate(1deg);
 }

@@ -1,36 +1,23 @@
-# Five Stags Meat Raffle — Phase 2 Rigged Mascot
+# Five Stags Meat Raffle — Phase 2 Alignment Fix
 
-This version rebuilds the mascot as separate transparent pieces so it can move while operating the raffle crank.
+This update keeps the rigged mascot and corrects the positioning of the separate pieces.
 
-## New mascot files
+## Fixed
 
-- `stag-body.png`
-- `stag-head.png`
-- `stag-upper-arm.png`
-- `stag-forearm-hand.png`
-
-## Animation
-
-During a draw:
-
-- the mascot body moves slightly
-- the head nods
-- the upper arm pivots
-- the forearm and hand move with the crank
-- the crank and drum continue their existing animations
+- Head aligned more naturally with the body
+- Upper arm moved down and inward
+- Forearm moved closer to the elbow
+- Hand aligned more closely with the crank handle
+- Crank moved slightly toward the mascot
+- Added subtle seam masking where the arm pieces overlap
 
 ## Upload to GitHub
 
-Upload or replace:
+Replace:
 
-- `index.html`
 - `style.css`
-- `script.js`
 - `README.md`
-- `five-stags-logo-v5.png`
-- `stag-body.png`
-- `stag-head.png`
-- `stag-upper-arm.png`
-- `stag-forearm-hand.png`
 
-After committing, wait for GitHub Pages, then refresh using **Ctrl + F5**.
+You do not need to replace the image files or JavaScript for this alignment update.
+
+After committing, wait for GitHub Pages and refresh using **Ctrl + F5**.
