@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1f2a22" />
+  <title>Five Stags Lucky Draw</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <div class="brand">
+        <div class="stag-mark" aria-hidden="true">◆</div>
+        <div>
+          <p class="eyebrow">FIVE STAGS</p>
+          <h1>Lucky Draw</h1>
+        </div>
+      </div>
+
+      <button id="fullscreenBtn" class="icon-btn" type="button" aria-label="Enter full screen">
+        Full screen
+      </button>
+    </header>
+
+    <section class="draw-panel">
+      <aside class="controls-card">
+        <h2>Set up this week's draw</h2>
+
+        <label for="maxNumber">Highest ticket number</label>
+        <div class="input-row">
+          <input
+            id="maxNumber"
+            type="number"
+            min="1"
+            max="10000"
+            value="200"
+            inputmode="numeric"
+          />
+          <button id="applyRangeBtn" class="secondary-btn" type="button">Apply</button>
+        </div>
+
+        <p id="rangeMessage" class="helper">Tickets 1–200 are ready.</p>
+
+        <div class="stats-grid">
+          <div class="stat">
+            <span>Remaining</span>
+            <strong id="remainingCount">200</strong>
+          </div>
+          <div class="stat">
+            <span>Drawn</span>
+            <strong id="drawnCount">0</strong>
+          </div>
+        </div>
+
+        <button id="drawBtn" class="draw-btn" type="button">
+          Draw a number
+        </button>
+
+        <button id="resetBtn" class="danger-link" type="button">
+          Reset this draw
+        </button>
+      </aside>
+
+      <section class="number-stage" aria-live="polite">
+        <p class="stage-label">Winning number</p>
+
+        <div id="numberDisplay" class="number-display">
+          <span id="winningNumber">—</span>
+        </div>
+
+        <p id="statusText" class="status-text">Ready when you are.</p>
+
+        <div id="confetti" class="confetti-layer" aria-hidden="true"></div>
+      </section>
+    </section>
+
+    <section class="history-card">
+      <div class="history-heading">
+        <div>
+          <p class="eyebrow">DRAW HISTORY</p>
+          <h2>Numbers already drawn</h2>
+        </div>
+        <button id="clearHistoryBtn" class="small-btn" type="button">Clear history</button>
+      </div>
+
+      <div id="historyList" class="history-list">
+        <p class="empty-history">No numbers drawn yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="confirmDialog">
+    <form method="dialog" class="dialog-card">
+      <h2>Reset the draw?</h2>
+      <p>This will clear all previously drawn numbers and start again.</p>
+      <div class="dialog-actions">
+        <button value="cancel" class="secondary-btn">Cancel</button>
+        <button value="confirm" class="confirm-btn">Reset</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
