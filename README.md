@@ -1,31 +1,36 @@
-# Five Stags Meat Raffle — Phase 1 Layout
+# Five Stags Meat Raffle — Phase 2 Rigged Mascot
 
-This update focuses only on the webpage layout and TV presentation.
+This version rebuilds the mascot as separate transparent pieces so it can move while operating the raffle crank.
 
-## What changed
+## New mascot files
 
-- The title now says only **Five Stags Meat Raffle**
-- The real Five Stags logo is used in the header and drum
-- The drum is smaller, taller and more cylindrical
-- The winner display is larger and easier to read
-- The draw controls are combined into one premium control console
-- Previous winners are contained in a compact strip
-- The full screen is designed to fit without scrolling
-- Existing raffle logic, random draw, settings, countdown, sound and history remain intact
+- `stag-body.png`
+- `stag-head.png`
+- `stag-upper-arm.png`
+- `stag-forearm-hand.png`
+
+## Animation
+
+During a draw:
+
+- the mascot body moves slightly
+- the head nods
+- the upper arm pivots
+- the forearm and hand move with the crank
+- the crank and drum continue their existing animations
 
 ## Upload to GitHub
 
-Replace or upload:
+Upload or replace:
 
 - `index.html`
 - `style.css`
 - `script.js`
+- `README.md`
 - `five-stags-logo-v5.png`
+- `stag-body.png`
+- `stag-head.png`
+- `stag-upper-arm.png`
+- `stag-forearm-hand.png`
 
-Keep:
-
-- `stag-host-v4.png`
-
-The older images can remain in your repository. They will not interfere.
-
-After committing, wait for GitHub Pages to finish, then refresh the live page with **Ctrl + F5**.
+After committing, wait for GitHub Pages, then refresh using **Ctrl + F5**.

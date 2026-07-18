@@ -957,3 +957,97 @@ dialog::backdrop{
     gap:7px;
   }
 }
+
+
+/* Phase 2: rigged mascot */
+.mascot{display:none!important}
+
+.rigged-stag{
+  position:absolute;
+  left:-1%;
+  bottom:-1%;
+  width:100%;
+  height:100%;
+  transform-origin:55% 88%;
+  filter:drop-shadow(0 22px 38px rgba(0,0,0,.55));
+}
+
+.stag-part{
+  position:absolute;
+  display:block;
+  user-select:none;
+  pointer-events:none;
+}
+
+.stag-body{
+  left:3%;
+  bottom:0;
+  width:78%;
+  z-index:2;
+}
+
+.stag-head{
+  left:19%;
+  top:1%;
+  width:62%;
+  z-index:5;
+  transform-origin:50% 82%;
+}
+
+.stag-upper-arm{
+  left:49%;
+  top:48%;
+  width:38%;
+  z-index:6;
+  transform-origin:18% 46%;
+}
+
+.stag-forearm-hand{
+  left:51%;
+  top:52%;
+  width:52%;
+  z-index:7;
+  transform-origin:16% 50%;
+}
+
+.raffle-machine.mixing .rigged-stag{
+  animation:rigBodyBob .52s ease-in-out infinite alternate;
+}
+
+.raffle-machine.mixing .stag-head{
+  animation:rigHeadNod .72s ease-in-out infinite alternate;
+}
+
+.raffle-machine.mixing .stag-upper-arm{
+  animation:rigUpperArm .48s linear infinite;
+}
+
+.raffle-machine.mixing .stag-forearm-hand{
+  animation:rigForearm .48s linear infinite;
+}
+
+@keyframes rigBodyBob{
+  from{transform:translateY(0) rotate(-.25deg)}
+  to{transform:translateY(-3px) rotate(.25deg)}
+}
+
+@keyframes rigHeadNod{
+  from{transform:rotate(-1.2deg)}
+  to{transform:rotate(1.2deg)}
+}
+
+@keyframes rigUpperArm{
+  0%{transform:rotate(-8deg)}
+  25%{transform:rotate(4deg)}
+  50%{transform:rotate(10deg)}
+  75%{transform:rotate(2deg)}
+  100%{transform:rotate(-8deg)}
+}
+
+@keyframes rigForearm{
+  0%{transform:rotate(6deg) translateY(0)}
+  25%{transform:rotate(-5deg) translateY(2px)}
+  50%{transform:rotate(-10deg) translateY(0)}
+  75%{transform:rotate(-3deg) translateY(-2px)}
+  100%{transform:rotate(6deg) translateY(0)}
+}
