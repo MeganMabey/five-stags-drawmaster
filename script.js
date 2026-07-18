@@ -10,7 +10,7 @@ const els={
  backdrop:$("drawerBackdrop"),fullscreen:$("fullscreenBtn"),countdownToggle:$("countdownToggle"),
  overlayToggle:$("overlayToggle"),countdownOverlay:$("countdownOverlay"),
  countdownNumber:$("countdownNumber"),setup:$("setupMessage"),confirm:$("confirmDialog"),
- screen:document.querySelector(".raffle-screen")
+ screen:document.querySelector(".raffle-machine")
 };
 let state={maxNumber:200,drawnNumbers:[],currentWinner:null,soundOn:true,countdownOn:true,overlayOn:true};
 let balls=[],drawing=false,mix=.28,audio=null;

@@ -1,29 +1,31 @@
-# Five Stags Meat Raffle — Version 4
+# Five Stags Meat Raffle — Phase 1 Layout
 
-Version 4 is redesigned to fit on a TV screen without scrolling.
+This update focuses only on the webpage layout and TV presentation.
 
-## Improvements
+## What changed
 
-- Main draw button and counters remain visible
-- Smaller, more realistic raffle drum
-- Fewer, larger display balls for better readability
-- The generator still draws fairly from every remaining ticket
-- Improved mascot background removal
-- Stronger winner celebration
-- Full-screen mode
-- Settings drawer
-- Countdown, sound, winner history and automatic saving
+- The title now says only **Five Stags Meat Raffle**
+- The real Five Stags logo is used in the header and drum
+- The drum is smaller, taller and more cylindrical
+- The winner display is larger and easier to read
+- The draw controls are combined into one premium control console
+- Previous winners are contained in a compact strip
+- The full screen is designed to fit without scrolling
+- Existing raffle logic, random draw, settings, countdown, sound and history remain intact
 
 ## Upload to GitHub
 
-Replace the existing files in the main repository with:
+Replace or upload:
 
-- index.html
-- style.css
-- script.js
-- stag-host-v4.png
-- README.md
+- `index.html`
+- `style.css`
+- `script.js`
+- `five-stags-logo-v5.png`
 
-The older `stag-host.png` and `five-stags-logo.png` may stay in the repository. They are not used by Version 4.
+Keep:
 
-After committing, wait for GitHub Pages to finish and refresh the live site with Ctrl + F5.
+- `stag-host-v4.png`
+
+The older images can remain in your repository. They will not interfere.
+
+After committing, wait for GitHub Pages to finish, then refresh the live page with **Ctrl + F5**.
