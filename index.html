@@ -3,161 +3,189 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#0b120d">
+  <meta name="theme-color" content="#09100b">
   <title>Five Stags Meat Raffle</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="app">
-    <section class="raffle-machine">
-      <header class="machine-header">
-        <img src="five-stags-logo-v5.png" alt="Five Stags" class="header-logo">
+    <section class="machine">
+      <header class="header">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 120 90">
+            <path d="M58 41 C43 35 31 20 27 5 M58 41 C42 39 21 36 7 23 M62 41 C77 35 89 20 93 5 M62 41 C78 39 99 36 113 23"
+              fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path d="M60 37 C46 37 39 47 42 59 C45 72 54 80 60 83 C66 80 75 72 78 59 C81 47 74 37 60 37Z"
+              fill="none" stroke="currentColor" stroke-width="4"/>
+          </svg>
+        </div>
 
-        <div class="title-block">
-          <p>FIVE STAGS</p>
+        <div class="title">
+          <span>FIVE STAGS</span>
           <h1>MEAT RAFFLE</h1>
         </div>
 
         <div class="header-actions">
-          <button id="soundBtn" class="utility-btn" type="button">Sound: On</button>
-          <button id="settingsBtn" class="utility-btn" type="button">Settings</button>
-          <button id="fullscreenBtn" class="utility-btn" type="button">Full screen</button>
+          <button id="soundBtn">Sound: On</button>
+          <button id="settingsBtn">Settings</button>
+          <button id="fullscreenBtn">Full screen</button>
         </div>
       </header>
 
-      <div class="show-area">
-        <div class="mascot-zone">
-          <div class="mascot-glow"></div>
+      <section class="stage">
+        <div class="mascot-wrap">
+          <svg id="stagMascot" class="stag-svg" viewBox="0 0 430 720" role="img" aria-label="Five Stags raffle host">
+            <defs>
+              <linearGradient id="fur" x1="0" x2="1">
+                <stop offset="0" stop-color="#7d4b2c"/>
+                <stop offset=".45" stop-color="#b67a4e"/>
+                <stop offset="1" stop-color="#704228"/>
+              </linearGradient>
+              <linearGradient id="shirt" x1="0" x2="1">
+                <stop offset="0" stop-color="#173324"/>
+                <stop offset=".5" stop-color="#254b36"/>
+                <stop offset="1" stop-color="#10261b"/>
+              </linearGradient>
+              <linearGradient id="apron" x1="0" x2="1">
+                <stop offset="0" stop-color="#101612"/>
+                <stop offset=".5" stop-color="#202922"/>
+                <stop offset="1" stop-color="#0a0e0b"/>
+              </linearGradient>
+              <radialGradient id="face" cx=".42" cy=".35">
+                <stop offset="0" stop-color="#c48859"/>
+                <stop offset=".65" stop-color="#98603b"/>
+                <stop offset="1" stop-color="#6e4027"/>
+              </radialGradient>
+            </defs>
 
-          <div id="riggedStag" class="rigged-stag">
-            <img src="stag-body.png" alt="" class="stag-part stag-body">
-            <img src="stag-head.png" alt="Five Stags raffle mascot" class="stag-part stag-head">
-            <img src="stag-upper-arm.png" alt="" class="stag-part stag-upper-arm">
-            <img src="stag-forearm-hand.png" alt="" class="stag-part stag-forearm-hand">
-          </div>
+            <g class="body-group">
+              <path d="M102 700 C95 600 91 475 130 390 C160 326 270 326 300 390 C339 475 335 600 328 700Z"
+                fill="url(#shirt)"/>
+              <path d="M132 700 L145 428 Q215 390 285 428 L298 700Z" fill="url(#apron)" stroke="#a97942" stroke-width="5"/>
+              <path d="M145 430 Q163 370 170 340 M285 430 Q267 370 260 340" fill="none" stroke="#9c6b38" stroke-width="13" stroke-linecap="round"/>
+              <text x="215" y="515" text-anchor="middle" fill="#e3b75f" font-family="Georgia" font-size="33" font-weight="700">FIVE</text>
+              <text x="215" y="550" text-anchor="middle" fill="#e3b75f" font-family="Georgia" font-size="33" font-weight="700">STAGS</text>
+              <path d="M178 463 C190 451 202 446 215 446 C228 446 240 451 252 463
+                       C239 470 227 475 215 478 C203 475 191 470 178 463Z"
+                fill="#d4a34b"/>
+            </g>
 
-          <div id="crank" class="crank">
-            <span class="crank-shaft"></span>
-            <span class="crank-handle"></span>
+            <g class="head-group">
+              <g class="antlers" fill="none" stroke="url(#fur)" stroke-width="15" stroke-linecap="round">
+                <path d="M185 143 C150 104 135 63 139 18 M166 122 C127 110 102 88 89 55 M159 98 C126 82 110 58 104 30"/>
+                <path d="M245 143 C280 104 295 63 291 18 M264 122 C303 110 328 88 341 55 M271 98 C304 82 320 58 326 30"/>
+              </g>
+              <path d="M161 169 C140 150 112 149 92 165 C111 187 137 196 161 193Z" fill="url(#fur)"/>
+              <path d="M269 169 C290 150 318 149 338 165 C319 187 293 196 269 193Z" fill="url(#fur)"/>
+              <path d="M153 155 C168 125 193 112 215 112 C237 112 262 125 277 155
+                       C292 184 283 247 260 286 C247 307 231 321 215 327
+                       C199 321 183 307 170 286 C147 247 138 184 153 155Z"
+                fill="url(#face)" stroke="#5d351f" stroke-width="4"/>
+              <ellipse cx="184" cy="206" rx="9" ry="12" fill="#14110e"/>
+              <ellipse cx="246" cy="206" rx="9" ry="12" fill="#14110e"/>
+              <ellipse cx="181" cy="202" rx="3" ry="4" fill="#fff5df"/>
+              <ellipse cx="243" cy="202" rx="3" ry="4" fill="#fff5df"/>
+              <path d="M192 249 Q215 235 238 249 Q236 272 215 278 Q194 272 192 249Z" fill="#302018"/>
+              <path d="M184 279 Q215 307 246 279 Q240 326 215 335 Q190 326 184 279Z" fill="#fff0d7" opacity=".95"/>
+              <path d="M197 294 Q215 306 233 294" fill="none" stroke="#6a3526" stroke-width="5" stroke-linecap="round"/>
+            </g>
+
+            <g class="back-arm">
+              <path d="M127 422 C80 442 54 487 58 535 C61 567 80 579 104 568
+                       C116 558 120 540 117 522 C113 500 120 472 153 456Z"
+                fill="url(#shirt)"/>
+              <path d="M102 552 C82 559 75 581 84 596 C96 615 126 605 136 584Z" fill="url(#fur)"/>
+            </g>
+
+            <g class="front-arm">
+              <path d="M278 416 C320 423 344 450 348 485 C351 510 337 525 319 523
+                       C300 520 293 501 296 481 C298 466 292 450 269 442Z"
+                fill="url(#shirt)"/>
+              <g class="forearm">
+                <path d="M321 502 C346 502 372 515 392 535 C404 547 402 564 389 573
+                         C375 582 360 574 349 562 C333 546 315 538 298 538Z"
+                  fill="url(#fur)"/>
+                <path d="M385 532 C402 530 416 542 416 557 C416 574 400 586 384 579
+                         C369 573 366 550 385 532Z" fill="url(#fur)"/>
+              </g>
+            </g>
+          </svg>
+
+          <div class="mascot-crank">
+            <span class="shaft"></span>
+            <span class="handle"></span>
           </div>
         </div>
 
-        <div class="drum-zone">
-          <div class="drum-assembly">
-            <div id="drumShell" class="drum-shell">
-              <canvas id="drumCanvas" width="960" height="540" aria-label="Animated raffle drum"></canvas>
-              <div class="drum-glare"></div>
-
-              <div class="drum-logo">
-                <img src="five-stags-logo-v5.png" alt="">
-              </div>
-            </div>
-
-            <div class="drum-rim drum-rim-left"></div>
-            <div class="drum-rim drum-rim-right"></div>
-
-            <div class="drum-stand">
-              <span class="leg left"></span>
-              <span class="leg right"></span>
-              <span class="stand-base"></span>
-            </div>
+        <div class="drum-wrap">
+          <div class="drum">
+            <canvas id="drumCanvas" width="960" height="540"></canvas>
+            <div class="glass"></div>
+            <div class="drum-badge">FIVE<br>STAGS</div>
+          </div>
+          <div class="stand">
+            <span></span><span></span><b></b>
           </div>
         </div>
 
-        <aside class="winner-panel">
-          <p>WINNER</p>
-          <div class="winner-orbit">
-            <strong id="winnerSmall">—</strong>
-          </div>
+        <aside class="winner">
+          <span>WINNER</span>
+          <div id="winnerSmall">—</div>
         </aside>
-      </div>
+      </section>
 
-      <div class="control-console">
-        <div class="counter counter-left">
-          <span>Remaining</span>
-          <strong id="remainingCount">200</strong>
-        </div>
-
-        <button id="drawBtn" class="draw-btn" type="button">
-          <span class="main-label">DRAW A NUMBER</span>
-          <span class="sub-label">Click to start the raffle drum</span>
+      <section class="controls">
+        <div class="stat"><span>Remaining</span><strong id="remainingCount">200</strong></div>
+        <button id="drawBtn" class="draw-btn">
+          <b>DRAW A NUMBER</b>
+          <small>Start the raffle drum</small>
         </button>
+        <div class="stat"><span>Drawn</span><strong id="drawnCount">0</strong></div>
+        <button id="resetBtn" class="reset-btn">Reset</button>
+      </section>
 
-        <div class="counter counter-right">
-          <span>Drawn</span>
-          <strong id="drawnCount">0</strong>
-        </div>
-
-        <button id="resetBtn" class="reset-btn" type="button">Reset</button>
-      </div>
-
-      <section class="history-strip">
-        <div class="history-title">PREVIOUS WINNERS</div>
-        <div id="historyList" class="history-list">
-          <span class="empty">No winners yet.</span>
-        </div>
+      <section class="history">
+        <strong>PREVIOUS WINNERS</strong>
+        <div id="historyList"><span>No winners yet.</span></div>
       </section>
     </section>
   </main>
 
-  <div id="winnerOverlay" class="overlay" aria-hidden="true">
-    <div id="confetti" class="confetti"></div>
-    <div class="winner-card">
-      <p>WINNING TICKET</p>
-      <div id="winnerLarge" class="winner-large">—</div>
-      <h2>Congratulations!</h2>
-      <button id="closeWinnerBtn" type="button">Back to raffle</button>
-    </div>
-  </div>
-
-  <div id="countdownOverlay" class="countdown-overlay" aria-hidden="true">
-    <div id="countdownNumber">3</div>
-  </div>
-
-  <aside id="settingsDrawer" class="drawer" aria-hidden="true">
-    <div id="drawerBackdrop" class="drawer-backdrop"></div>
-
-    <div class="drawer-panel">
-      <div class="drawer-head">
-        <div>
-          <span>ADMIN</span>
-          <h2>Raffle settings</h2>
-        </div>
-        <button id="closeSettingsBtn" class="close" type="button">×</button>
-      </div>
-
-      <label for="maxNumber">Highest ticket number</label>
+  <aside id="settingsDrawer" class="drawer">
+    <div id="drawerBackdrop" class="backdrop"></div>
+    <div class="panel">
+      <button id="closeSettingsBtn" class="close">×</button>
+      <h2>Raffle settings</h2>
+      <label>Highest ticket number</label>
       <div class="input-row">
         <input id="maxNumber" type="number" min="1" max="2000" value="200">
-        <button id="applyBtn" type="button">Apply</button>
+        <button id="applyBtn">Apply</button>
       </div>
-      <p id="setupMessage" class="help">Tickets 1–200 are loaded.</p>
-
-      <div class="toggle-row">
-        <div>
-          <strong>Countdown</strong>
-          <small>Show 3, 2, 1 before mixing.</small>
-        </div>
-        <input id="countdownToggle" type="checkbox" checked>
-      </div>
-
-      <div class="toggle-row">
-        <div>
-          <strong>Large winner screen</strong>
-          <small>Show the celebration overlay.</small>
-        </div>
-        <input id="overlayToggle" type="checkbox" checked>
-      </div>
+      <p id="setupMessage">Tickets 1–200 loaded.</p>
+      <label class="toggle"><span>Countdown</span><input id="countdownToggle" type="checkbox" checked></label>
+      <label class="toggle"><span>Winner overlay</span><input id="overlayToggle" type="checkbox" checked></label>
     </div>
   </aside>
 
+  <div id="countdownOverlay" class="countdown"><div id="countdownNumber">3</div></div>
+
+  <div id="winnerOverlay" class="overlay">
+    <div id="confetti" class="confetti"></div>
+    <div class="winner-card">
+      <span>WINNING TICKET</span>
+      <strong id="winnerLarge">—</strong>
+      <p>Congratulations!</p>
+      <button id="closeWinnerBtn">Back to raffle</button>
+    </div>
+  </div>
+
   <dialog id="confirmDialog">
-    <form method="dialog" class="dialog-card">
-      <h2>Reset the raffle?</h2>
-      <p>This clears all previous winners and reloads every ticket.</p>
-      <div class="dialog-actions">
+    <form method="dialog">
+      <h2>Reset raffle?</h2>
+      <p>This clears every previous winner.</p>
+      <div>
         <button value="cancel">Cancel</button>
-        <button value="confirm" class="danger">Reset</button>
+        <button value="confirm">Reset</button>
       </div>
     </form>
   </dialog>

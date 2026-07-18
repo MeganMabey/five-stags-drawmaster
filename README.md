@@ -1,23 +1,20 @@
-# Five Stags Meat Raffle — Phase 2 Alignment Fix
+# Five Stags Meat Raffle — Fresh Build
 
-This update keeps the rigged mascot and corrects the positioning of the separate pieces.
+This is a clean rebuild from scratch.
 
-## Fixed
+## Key difference
 
-- Head aligned more naturally with the body
-- Upper arm moved down and inward
-- Forearm moved closer to the elbow
-- Hand aligned more closely with the crank handle
-- Crank moved slightly toward the mascot
-- Added subtle seam masking where the arm pieces overlap
+The stag mascot is now a vector SVG built directly into the webpage. Its body, head, arm and forearm are separate SVG groups, so they animate cleanly without mismatched image pieces, background fragments or visible seams.
 
 ## Upload to GitHub
 
-Replace:
+Replace the main project files with:
 
-- `style.css`
-- `README.md`
+- index.html
+- style.css
+- script.js
+- README.md
 
-You do not need to replace the image files or JavaScript for this alignment update.
+No additional mascot PNG files are needed.
 
-After committing, wait for GitHub Pages and refresh using **Ctrl + F5**.
+After committing, wait for GitHub Pages and refresh with Ctrl + F5.
