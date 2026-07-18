@@ -1,4 +1,4 @@
-const STORAGE_KEY = "fiveStagsRaffleDrumV2";
+const STORAGE_KEY = "fiveStagsRaffleV3";
 
 const canvas = document.getElementById("drumCanvas");
 const ctx = canvas.getContext("2d");
@@ -12,7 +12,6 @@ const remainingCount = document.getElementById("remainingCount");
 const drawnCount = document.getElementById("drawnCount");
 const setupMessage = document.getElementById("setupMessage");
 const statusText = document.getElementById("statusText");
-const ticketBadge = document.getElementById("ticketBadge");
 const winnerNumber = document.getElementById("winnerNumber");
 const winnerBall = document.getElementById("winnerBall");
 const winnerOverlay = document.getElementById("winnerOverlay");
@@ -22,19 +21,29 @@ const historyList = document.getElementById("historyList");
 const confirmDialog = document.getElementById("confirmDialog");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 const soundBtn = document.getElementById("soundBtn");
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsDrawer = document.getElementById("settingsDrawer");
+const closeSettingsBtn = document.getElementById("closeSettingsBtn");
+const drawerBackdrop = document.getElementById("drawerBackdrop");
+const countdownToggle = document.getElementById("countdownToggle");
+const overlayToggle = document.getElementById("overlayToggle");
+const countdownOverlay = document.getElementById("countdownOverlay");
+const countdownNumber = document.getElementById("countdownNumber");
 const confetti = document.getElementById("confetti");
+const stage = document.querySelector(".stage-card");
 
 let state = {
   maxNumber: 200,
   drawnNumbers: [],
   currentWinner: null,
-  soundOn: true
+  soundOn: true,
+  countdownOn: true,
+  winnerOverlayOn: true
 };
 
 let balls = [];
-let animationFrame = null;
 let isDrawing = false;
-let mixingStrength = 0.35;
+let mixingStrength = 0.33;
 let audioContext = null;
 
 function loadState() {
@@ -47,9 +56,11 @@ function loadState() {
       );
       state.currentWinner = Number.isInteger(saved.currentWinner) ? saved.currentWinner : null;
       state.soundOn = saved.soundOn !== false;
+      state.countdownOn = saved.countdownOn !== false;
+      state.winnerOverlayOn = saved.winnerOverlayOn !== false;
     }
   } catch (error) {
-    console.warn("Could not load saved draw:", error);
+    console.warn("Could not load saved raffle:", error);
   }
 }
 
@@ -59,11 +70,11 @@ function saveState() {
 
 function availableNumbers() {
   const used = new Set(state.drawnNumbers);
-  const list = [];
+  const available = [];
   for (let i = 1; i <= state.maxNumber; i += 1) {
-    if (!used.has(i)) list.push(i);
+    if (!used.has(i)) available.push(i);
   }
-  return list;
+  return available;
 }
 
 function randomBetween(min, max) {
@@ -72,29 +83,29 @@ function randomBetween(min, max) {
 
 function buildBalls() {
   const available = availableNumbers();
-  const maxVisible = 90;
-  const visibleNumbers =
+  const maxVisible = 95;
+  const visible =
     available.length <= maxVisible
       ? available
       : [...available].sort(() => Math.random() - 0.5).slice(0, maxVisible);
 
-  balls = visibleNumbers.map(number => ({
+  balls = visible.map(number => ({
     number,
     x: randomBetween(165, canvas.width - 165),
-    y: randomBetween(130, canvas.height - 135),
+    y: randomBetween(130, canvas.height - 140),
     vx: randomBetween(-1.2, 1.2),
     vy: randomBetween(-1.2, 1.2),
-    radius: available.length > 300 ? 14 : available.length > 150 ? 16 : 19,
+    radius: available.length > 300 ? 15 : available.length > 150 ? 17 : 20,
     angle: randomBetween(0, Math.PI * 2),
-    spin: randomBetween(-0.035, 0.035)
+    spin: randomBetween(-0.038, 0.038)
   }));
 }
 
 function drumBounds(ball) {
   const cx = canvas.width / 2;
-  const cy = canvas.height / 2 + 8;
-  const rx = 278 - ball.radius;
-  const ry = 190 - ball.radius;
+  const cy = canvas.height / 2 + 10;
+  const rx = 366 - ball.radius;
+  const ry = 250 - ball.radius;
   return { cx, cy, rx, ry };
 }
 
@@ -107,7 +118,8 @@ function updateBalls() {
     ball.vy += 0.018;
 
     const speed = Math.hypot(ball.vx, ball.vy);
-    const maxSpeed = isDrawing ? 6.8 : 2.7;
+    const maxSpeed = isDrawing ? 7.8 : 2.7;
+
     if (speed > maxSpeed) {
       ball.vx = (ball.vx / speed) * maxSpeed;
       ball.vy = (ball.vy / speed) * maxSpeed;
@@ -133,8 +145,8 @@ function updateBalls() {
 
       ball.vx -= 2 * dot * normalX;
       ball.vy -= 2 * dot * normalY;
-      ball.vx *= 0.86;
-      ball.vy *= 0.86;
+      ball.vx *= 0.88;
+      ball.vy *= 0.88;
 
       const angle = Math.atan2((ball.y - cy) / ry, (ball.x - cx) / rx);
       ball.x = cx + Math.cos(angle) * rx * 0.985;
@@ -156,9 +168,9 @@ function drawBall(ball) {
     0,
     ball.radius
   );
-  gradient.addColorStop(0, "#fff8dc");
-  gradient.addColorStop(0.25, "#f0d08d");
-  gradient.addColorStop(1, "#b77924");
+  gradient.addColorStop(0, "#fff8dd");
+  gradient.addColorStop(0.26, "#f1d190");
+  gradient.addColorStop(1, "#b87723");
 
   ctx.beginPath();
   ctx.arc(0, 0, ball.radius, 0, Math.PI * 2);
@@ -166,11 +178,11 @@ function drawBall(ball) {
   ctx.fill();
 
   ctx.lineWidth = 2;
-  ctx.strokeStyle = "rgba(85,50,8,.55)";
+  ctx.strokeStyle = "rgba(85,50,8,.58)";
   ctx.stroke();
 
   ctx.fillStyle = "#172017";
-  ctx.font = `900 ${Math.max(10, ball.radius * 0.72)}px Arial`;
+  ctx.font = `900 ${Math.max(11, ball.radius * 0.72)}px Arial`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillText(ball.number, 0, 1);
@@ -182,19 +194,20 @@ function renderCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const glass = ctx.createRadialGradient(
-    canvas.width / 2 - 90,
-    canvas.height / 2 - 70,
-    40,
+    canvas.width / 2 - 100,
+    canvas.height / 2 - 90,
+    50,
     canvas.width / 2,
     canvas.height / 2,
-    310
+    390
   );
-  glass.addColorStop(0, "rgba(255,255,255,.065)");
-  glass.addColorStop(0.58, "rgba(255,255,255,.018)");
+
+  glass.addColorStop(0, "rgba(255,255,255,.055)");
+  glass.addColorStop(0.58, "rgba(255,255,255,.014)");
   glass.addColorStop(1, "rgba(0,0,0,.06)");
 
   ctx.beginPath();
-  ctx.ellipse(canvas.width / 2, canvas.height / 2 + 8, 286, 198, 0, 0, Math.PI * 2);
+  ctx.ellipse(canvas.width / 2, canvas.height / 2 + 10, 374, 258, 0, 0, Math.PI * 2);
   ctx.fillStyle = glass;
   ctx.fill();
 
@@ -204,7 +217,7 @@ function renderCanvas() {
 function animate() {
   updateBalls();
   renderCanvas();
-  animationFrame = requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 }
 
 function renderUI() {
@@ -213,18 +226,19 @@ function renderUI() {
   maxNumberInput.value = state.maxNumber;
   remainingCount.textContent = remaining;
   drawnCount.textContent = state.drawnNumbers.length;
-  ticketBadge.textContent = `${remaining} ticket${remaining === 1 ? "" : "s"}`;
   winnerNumber.textContent = state.currentWinner ?? "—";
+
   soundBtn.textContent = state.soundOn ? "Sound: On" : "Sound: Off";
-  soundBtn.setAttribute("aria-pressed", String(state.soundOn));
+  countdownToggle.checked = state.countdownOn;
+  overlayToggle.checked = state.winnerOverlayOn;
 
   drawBtn.disabled = remaining === 0 || isDrawing;
-  drawBtn.textContent =
-    remaining === 0 ? "All tickets drawn" : isDrawing ? "Mixing..." : "Start the drum";
+  drawBtn.querySelector(".draw-btn-main").textContent =
+    remaining === 0 ? "All tickets drawn" : isDrawing ? "Mixing..." : "Draw a number";
+  drawBtn.querySelector(".draw-btn-sub").textContent =
+    remaining === 0 ? "Reset to start again" : isDrawing ? "The stag is spinning" : "Start the drum";
 
-  setupMessage.textContent =
-    `Tickets 1–${state.maxNumber} are loaded. ${remaining} remaining.`;
-
+  setupMessage.textContent = `Tickets 1–${state.maxNumber} are loaded. ${remaining} remaining.`;
   renderHistory();
 }
 
@@ -234,7 +248,7 @@ function renderHistory() {
   if (state.drawnNumbers.length === 0) {
     const empty = document.createElement("p");
     empty.className = "empty-history";
-    empty.textContent = "No numbers drawn yet.";
+    empty.textContent = "No winners yet.";
     historyList.appendChild(empty);
     return;
   }
@@ -266,12 +280,13 @@ function validateMax() {
 
 function applyRange() {
   if (isDrawing) return;
+
   const nextMax = validateMax();
   if (nextMax === null) return;
 
   if (state.drawnNumbers.length > 0 && nextMax !== state.maxNumber) {
     const proceed = window.confirm(
-      "Changing the highest ticket number will start a fresh draw. Continue?"
+      "Changing the ticket range will start a fresh raffle. Continue?"
     );
     if (!proceed) {
       maxNumberInput.value = state.maxNumber;
@@ -286,10 +301,23 @@ function applyRange() {
   buildBalls();
   saveState();
   renderUI();
+  closeSettings();
 }
 
-function randomChoice(items) {
-  return items[Math.floor(Math.random() * items.length)];
+function secureRandomIndex(length) {
+  if (window.crypto && window.crypto.getRandomValues) {
+    const maxUint = 0xFFFFFFFF;
+    const limit = maxUint - (maxUint % length);
+    const array = new Uint32Array(1);
+
+    do {
+      window.crypto.getRandomValues(array);
+    } while (array[0] >= limit);
+
+    return array[0] % length;
+  }
+
+  return Math.floor(Math.random() * length);
 }
 
 function ensureAudio() {
@@ -300,6 +328,7 @@ function ensureAudio() {
 
 function playTone(frequency, duration, type = "sine", volume = 0.08, delay = 0) {
   if (!state.soundOn) return;
+
   ensureAudio();
 
   const osc = audioContext.createOscillator();
@@ -320,7 +349,26 @@ function playTone(frequency, duration, type = "sine", volume = 0.08, delay = 0) 
 function playWinnerSound() {
   playTone(523.25, 0.45, "triangle", 0.09, 0);
   playTone(659.25, 0.45, "triangle", 0.09, 0.14);
-  playTone(783.99, 0.65, "triangle", 0.1, 0.28);
+  playTone(783.99, 0.7, "triangle", 0.1, 0.28);
+}
+
+async function runCountdown() {
+  if (!state.countdownOn) return;
+
+  countdownOverlay.classList.add("show");
+  countdownOverlay.setAttribute("aria-hidden", "false");
+
+  for (const number of [3, 2, 1]) {
+    countdownNumber.textContent = number;
+    countdownNumber.style.animation = "none";
+    void countdownNumber.offsetWidth;
+    countdownNumber.style.animation = "";
+    playTone(320 + number * 55, 0.18, "triangle", 0.06);
+    await new Promise(resolve => setTimeout(resolve, 720));
+  }
+
+  countdownOverlay.classList.remove("show");
+  countdownOverlay.setAttribute("aria-hidden", "true");
 }
 
 async function drawWinner() {
@@ -329,29 +377,35 @@ async function drawWinner() {
   const available = availableNumbers();
   if (available.length === 0) return;
 
-  isDrawing = true;
-  mixingStrength = 0.95;
-  statusText.textContent = "The drum is mixing...";
-  renderUI();
-
   if (state.soundOn) {
     ensureAudio();
     if (audioContext.state === "suspended") await audioContext.resume();
   }
 
-  const pulseTimer = setInterval(() => {
-    playTone(randomBetween(110, 175), 0.09, "square", 0.018);
-  }, 175);
+  isDrawing = true;
+  renderUI();
 
-  await new Promise(resolve => setTimeout(resolve, 3200));
+  await runCountdown();
+
+  stage.classList.add("mixing");
+  mixingStrength = 1.06;
+  statusText.textContent = "The stag is turning the drum...";
+
+  const pulseTimer = setInterval(() => {
+    playTone(randomBetween(105, 165), 0.09, "square", 0.018);
+  }, 160);
+
+  await new Promise(resolve => setTimeout(resolve, 3600));
 
   clearInterval(pulseTimer);
-  const winner = randomChoice(available);
+
+  const winner = available[secureRandomIndex(available.length)];
 
   state.currentWinner = winner;
   state.drawnNumbers.push(winner);
   isDrawing = false;
-  mixingStrength = 0.35;
+  mixingStrength = 0.33;
+  stage.classList.remove("mixing");
 
   winnerNumber.textContent = winner;
   winnerBall.classList.remove("pop");
@@ -365,7 +419,9 @@ async function drawWinner() {
   renderUI();
   playWinnerSound();
 
-  setTimeout(() => showWinner(winner), 650);
+  if (state.winnerOverlayOn) {
+    setTimeout(() => showWinner(winner), 650);
+  }
 }
 
 function showWinner(number) {
@@ -383,25 +439,25 @@ function closeWinner() {
 
 function launchConfetti() {
   confetti.innerHTML = "";
-  for (let i = 0; i < 85; i += 1) {
+
+  for (let i = 0; i < 100; i += 1) {
     const piece = document.createElement("span");
     piece.className = "confetti-piece";
     piece.style.left = `${Math.random() * 100}%`;
     piece.style.animationDelay = `${Math.random() * .4}s`;
-    piece.style.animationDuration = `${1.6 + Math.random() * 1.1}s`;
-    piece.style.setProperty("--drift", `${-160 + Math.random() * 320}px`);
+    piece.style.animationDuration = `${1.7 + Math.random() * 1.1}s`;
+    piece.style.setProperty("--drift", `${-180 + Math.random() * 360}px`);
     piece.style.background =
-      i % 3 === 0 ? "var(--gold-pale)" :
+      i % 3 === 0 ? "var(--gold-light)" :
       i % 3 === 1 ? "var(--rust)" : "var(--cream)";
     confetti.appendChild(piece);
   }
 }
 
-function resetDraw() {
+function resetRaffle() {
   state.drawnNumbers = [];
   state.currentWinner = null;
-  winnerNumber.textContent = "—";
-  statusText.textContent = "The draw has been reset.";
+  statusText.textContent = "The raffle has been reset.";
   closeWinner();
   buildBalls();
   saveState();
@@ -410,15 +466,25 @@ function resetDraw() {
 
 function requestReset() {
   if (state.drawnNumbers.length === 0) {
-    resetDraw();
+    resetRaffle();
     return;
   }
 
   if (typeof confirmDialog.showModal === "function") {
     confirmDialog.showModal();
-  } else if (window.confirm("Reset the draw and clear all previous winners?")) {
-    resetDraw();
+  } else if (window.confirm("Reset the raffle and clear all winners?")) {
+    resetRaffle();
   }
+}
+
+function openSettings() {
+  settingsDrawer.classList.add("open");
+  settingsDrawer.setAttribute("aria-hidden", "false");
+}
+
+function closeSettings() {
+  settingsDrawer.classList.remove("open");
+  settingsDrawer.setAttribute("aria-hidden", "true");
 }
 
 async function toggleFullscreen() {
@@ -441,14 +507,19 @@ maxNumberInput.addEventListener("keydown", event => {
 drawBtn.addEventListener("click", drawWinner);
 resetBtn.addEventListener("click", requestReset);
 clearHistoryBtn.addEventListener("click", requestReset);
+
 closeWinnerBtn.addEventListener("click", closeWinner);
 winnerOverlay.addEventListener("click", event => {
   if (event.target === winnerOverlay) closeWinner();
 });
 
 confirmDialog.addEventListener("close", () => {
-  if (confirmDialog.returnValue === "confirm") resetDraw();
+  if (confirmDialog.returnValue === "confirm") resetRaffle();
 });
+
+settingsBtn.addEventListener("click", openSettings);
+closeSettingsBtn.addEventListener("click", closeSettings);
+drawerBackdrop.addEventListener("click", closeSettings);
 
 fullscreenBtn.addEventListener("click", toggleFullscreen);
 document.addEventListener("fullscreenchange", () => {
@@ -459,6 +530,16 @@ soundBtn.addEventListener("click", () => {
   state.soundOn = !state.soundOn;
   saveState();
   renderUI();
+});
+
+countdownToggle.addEventListener("change", () => {
+  state.countdownOn = countdownToggle.checked;
+  saveState();
+});
+
+overlayToggle.addEventListener("change", () => {
+  state.winnerOverlayOn = overlayToggle.checked;
+  saveState();
 });
 
 loadState();

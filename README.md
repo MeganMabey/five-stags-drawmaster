@@ -1,34 +1,34 @@
-# Five Stags Digital Raffle Drum — Version 2
+# Five Stags Meat Raffle — Version 3
 
-This version replaces the static number display with an animated digital raffle drum.
+Version 3 is the more polished, TV-friendly raffle app.
 
-## Features
+## Included
 
-- Enter the highest ticket number each week
-- Animated numbered balls inside a glass-style drum
+- Five Stags mascot beside the raffle drum
+- Animated drum, crank and mascot movement
+- Numbered balls moving inside the drum
+- Secure random winner selection from every remaining ticket
 - No duplicate winners
-- Large winner reveal
-- Confetti
-- Optional sound
+- Optional countdown
+- Optional large winner overlay
+- Confetti and sound
+- Hidden settings drawer
 - Full-screen mode
-- Draw history
-- Saves the current draw in the browser
-- Five Stags logo included
-- Works from GitHub Pages
+- Previous winner history
+- Automatic saving in the browser
 
-## Update your live GitHub site
+## Upload to GitHub
 
-1. Open the `five-stags-drawmaster` repository.
-2. Click **Add file** → **Upload files**.
-3. Upload:
-   - `index.html`
-   - `style.css`
-   - `script.js`
-   - `five-stags-logo.png`
-4. When GitHub asks about files with the same name, allow them to replace the old versions.
-5. Scroll down and click **Commit changes**.
-6. Wait about one minute, then refresh your live GitHub Pages link.
+Upload these files to the main area of your existing `five-stags-drawmaster` repository:
 
-## Important note
+- `index.html`
+- `style.css`
+- `script.js`
+- `stag-host.png`
+- `README.md`
 
-For performance, the screen shows up to 90 animated balls at once when there are hundreds of tickets. The winner is still selected fairly from every remaining ticket number, including numbers not currently visible in the animation.
+Allow GitHub to replace the old files, click **Commit changes**, wait about one minute, then refresh your live page with **Ctrl + F5**.
+
+## Testing locally
+
+Double-click `index.html` after downloading the individual files into the same folder.
