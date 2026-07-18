@@ -1,34 +1,29 @@
-# Five Stags Meat Raffle — Version 3
+# Five Stags Meat Raffle — Version 4
 
-Version 3 is the more polished, TV-friendly raffle app.
+Version 4 is redesigned to fit on a TV screen without scrolling.
 
-## Included
+## Improvements
 
-- Five Stags mascot beside the raffle drum
-- Animated drum, crank and mascot movement
-- Numbered balls moving inside the drum
-- Secure random winner selection from every remaining ticket
-- No duplicate winners
-- Optional countdown
-- Optional large winner overlay
-- Confetti and sound
-- Hidden settings drawer
+- Main draw button and counters remain visible
+- Smaller, more realistic raffle drum
+- Fewer, larger display balls for better readability
+- The generator still draws fairly from every remaining ticket
+- Improved mascot background removal
+- Stronger winner celebration
 - Full-screen mode
-- Previous winner history
-- Automatic saving in the browser
+- Settings drawer
+- Countdown, sound, winner history and automatic saving
 
 ## Upload to GitHub
 
-Upload these files to the main area of your existing `five-stags-drawmaster` repository:
+Replace the existing files in the main repository with:
 
-- `index.html`
-- `style.css`
-- `script.js`
-- `stag-host.png`
-- `README.md`
+- index.html
+- style.css
+- script.js
+- stag-host-v4.png
+- README.md
 
-Allow GitHub to replace the old files, click **Commit changes**, wait about one minute, then refresh your live page with **Ctrl + F5**.
+The older `stag-host.png` and `five-stags-logo.png` may stay in the repository. They are not used by Version 4.
 
-## Testing locally
-
-Double-click `index.html` after downloading the individual files into the same folder.
+After committing, wait for GitHub Pages to finish and refresh the live site with Ctrl + F5.
