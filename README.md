@@ -1,31 +1,18 @@
-# Five Stags Meat Raffle — Phase 1 Layout
+# Five Stags Meat Raffle — Phase 2 Mascot
 
-This update focuses only on the webpage layout and TV presentation.
-
-## What changed
-
-- The title now says only **Five Stags Meat Raffle**
-- The real Five Stags logo is used in the header and drum
-- The drum is smaller, taller and more cylindrical
-- The winner display is larger and easier to read
-- The draw controls are combined into one premium control console
-- Previous winners are contained in a compact strip
-- The full screen is designed to fit without scrolling
-- Existing raffle logic, random draw, settings, countdown, sound and history remain intact
+This package installs the new raffle-host mascot into the working webpage.
 
 ## Upload to GitHub
 
-Replace or upload:
+Upload or replace:
 
-- `index.html`
-- `style.css`
-- `script.js`
-- `five-stags-logo-v5.png`
+- index.html
+- style.css
+- script.js
+- stag-raffle-host.png
+- five-stags-logo-v5.png
+- README.md
 
-Keep:
+The old mascot files can stay in the repository; they will not be used.
 
-- `stag-host-v4.png`
-
-The older images can remain in your repository. They will not interfere.
-
-After committing, wait for GitHub Pages to finish, then refresh the live page with **Ctrl + F5**.
+After committing, wait for GitHub Pages to finish, then refresh with Ctrl + F5.

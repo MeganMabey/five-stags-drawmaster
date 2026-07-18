@@ -142,9 +142,9 @@ button{cursor:pointer}
 .mascot-zone{
   position:absolute;
   z-index:8;
-  left:1%;
+  left:.5%;
   bottom:0;
-  width:27%;
+  width:30%;
   height:98%;
   pointer-events:none;
 }
@@ -167,7 +167,7 @@ button{cursor:pointer}
   width:100%;
   height:100%;
   object-fit:contain;
-  object-position:left bottom;
+  object-position:center bottom;
   filter:drop-shadow(0 22px 38px rgba(0,0,0,.55));
   transform-origin:52% 88%;
 }
@@ -184,8 +184,8 @@ button{cursor:pointer}
 .crank{
   position:absolute;
   z-index:15;
-  right:-14%;
-  top:55%;
+  right:-6%;
+  top:61%;
   width:150px;
   height:150px;
   transform-origin:132px 75px;
