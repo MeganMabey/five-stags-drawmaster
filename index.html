@@ -1,87 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#1f2a22" />
-  <title>Five Stags Lucky Draw</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111812">
+  <title>Five Stags Raffle Drum</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="app-shell">
-    <header class="hero">
+  <main class="app">
+    <header class="topbar">
       <div class="brand">
-        <div class="stag-mark" aria-hidden="true">◆</div>
+        <img src="five-stags-logo.png" alt="Five Stags" class="logo">
         <div>
           <p class="eyebrow">FIVE STAGS</p>
-          <h1>Lucky Draw</h1>
+          <h1>Digital Raffle Drum</h1>
         </div>
       </div>
 
-      <button id="fullscreenBtn" class="icon-btn" type="button" aria-label="Enter full screen">
-        Full screen
-      </button>
+      <div class="top-actions">
+        <button id="soundBtn" class="small-button" type="button" aria-pressed="true">Sound: On</button>
+        <button id="fullscreenBtn" class="small-button" type="button">Full screen</button>
+      </div>
     </header>
 
-    <section class="draw-panel">
-      <aside class="controls-card">
-        <h2>Set up this week's draw</h2>
+    <section class="layout">
+      <aside class="control-panel">
+        <div class="panel-section">
+          <p class="eyebrow">THIS WEEK'S DRAW</p>
+          <h2>Ticket setup</h2>
 
-        <label for="maxNumber">Highest ticket number</label>
-        <div class="input-row">
-          <input
-            id="maxNumber"
-            type="number"
-            min="1"
-            max="10000"
-            value="200"
-            inputmode="numeric"
-          />
-          <button id="applyRangeBtn" class="secondary-btn" type="button">Apply</button>
+          <label for="maxNumber">Highest ticket number</label>
+          <div class="input-row">
+            <input id="maxNumber" type="number" min="1" max="2000" value="200" inputmode="numeric">
+            <button id="applyBtn" class="secondary-button" type="button">Apply</button>
+          </div>
+
+          <p id="setupMessage" class="help-text">Tickets 1–200 are loaded.</p>
         </div>
 
-        <p id="rangeMessage" class="helper">Tickets 1–200 are ready.</p>
-
-        <div class="stats-grid">
-          <div class="stat">
+        <div class="stats">
+          <div>
             <span>Remaining</span>
             <strong id="remainingCount">200</strong>
           </div>
-          <div class="stat">
+          <div>
             <span>Drawn</span>
             <strong id="drawnCount">0</strong>
           </div>
         </div>
 
-        <button id="drawBtn" class="draw-btn" type="button">
-          Draw a number
-        </button>
+        <button id="drawBtn" class="draw-button" type="button">Start the drum</button>
+        <button id="resetBtn" class="reset-button" type="button">Reset this draw</button>
 
-        <button id="resetBtn" class="danger-link" type="button">
-          Reset this draw
-        </button>
+        <div class="status-block">
+          <span class="status-dot"></span>
+          <span id="statusText">Ready to draw.</span>
+        </div>
       </aside>
 
-      <section class="number-stage" aria-live="polite">
-        <p class="stage-label">Winning number</p>
-
-        <div id="numberDisplay" class="number-display">
-          <span id="winningNumber">—</span>
+      <section class="machine-panel">
+        <div class="machine-heading">
+          <div>
+            <p class="eyebrow">LIVE RAFFLE</p>
+            <h2>Number drum</h2>
+          </div>
+          <span id="ticketBadge" class="ticket-badge">200 tickets</span>
         </div>
 
-        <p id="statusText" class="status-text">Ready when you are.</p>
+        <div class="machine">
+          <div class="winner-tube" aria-live="polite">
+            <span class="tube-label">WINNER</span>
+            <div id="winnerBall" class="winner-ball"><span id="winnerNumber">—</span></div>
+          </div>
 
-        <div id="confetti" class="confetti-layer" aria-hidden="true"></div>
+          <div class="drum-wrap">
+            <canvas id="drumCanvas" width="760" height="520" aria-label="Animated raffle balls"></canvas>
+            <div class="drum-rim" aria-hidden="true"></div>
+            <div class="drum-stand" aria-hidden="true">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+
+          <div id="winnerOverlay" class="winner-overlay" aria-hidden="true">
+            <div class="winner-card">
+              <p class="eyebrow">WINNING TICKET</p>
+              <div id="overlayNumber" class="overlay-number">—</div>
+              <p>Congratulations!</p>
+              <button id="closeWinnerBtn" class="secondary-button" type="button">Back to the drum</button>
+            </div>
+            <div id="confetti" class="confetti"></div>
+          </div>
+        </div>
       </section>
     </section>
 
-    <section class="history-card">
+    <section class="history-panel">
       <div class="history-heading">
         <div>
           <p class="eyebrow">DRAW HISTORY</p>
-          <h2>Numbers already drawn</h2>
+          <h2>Previous winners</h2>
         </div>
-        <button id="clearHistoryBtn" class="small-btn" type="button">Clear history</button>
+        <button id="clearHistoryBtn" class="small-button" type="button">Clear history</button>
       </div>
 
       <div id="historyList" class="history-list">
@@ -92,11 +113,11 @@
 
   <dialog id="confirmDialog">
     <form method="dialog" class="dialog-card">
-      <h2>Reset the draw?</h2>
-      <p>This will clear all previously drawn numbers and start again.</p>
+      <h2>Reset the whole draw?</h2>
+      <p>This clears every previous winner and reloads all ticket numbers.</p>
       <div class="dialog-actions">
-        <button value="cancel" class="secondary-btn">Cancel</button>
-        <button value="confirm" class="confirm-btn">Reset</button>
+        <button value="cancel" class="secondary-button">Cancel</button>
+        <button value="confirm" class="confirm-button">Reset draw</button>
       </div>
     </form>
   </dialog>
